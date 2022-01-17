@@ -31,8 +31,7 @@ import Footer from './blog-templates/Footer';
 // 3. remove token 
 // 4. improve validation  
 
-// new
-
+// update
 
 export default function LandingPage() {
 
