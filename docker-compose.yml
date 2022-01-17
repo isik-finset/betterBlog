@@ -1,0 +1,49 @@
+version: "2"
+services:
+  backend:
+    platform: linux/x86_64
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: back-end
+    depends_on:
+      - db
+      - mongodb
+    volumes:
+      - ./back-end/src:/app/src
+      - ./back-end/.env:/app/.env
+      - ./back-end/prisma:/app/prisma
+    ports:
+      - 8080:3000
+
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    container_name: db-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: betterday_db
+    ports:
+      - 3306:3306
+    volumes:
+      - betterBlogMysql:/var/lib/mysql
+    restart: always
+
+  mongodb:
+    image: mongo:4.2
+    container_name: db-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: betterday
+    ports:
+      - 27017:27017
+    volumes:
+      - betterBlogMongo:/data/db
+    restart: always
+
+volumes:
+  betterBlogMysql:
+  betterBlogMongo:
