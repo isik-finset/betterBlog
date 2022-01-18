@@ -29,6 +29,7 @@ services:
       - 3306:3306
     volumes:
       - betterBlogMysql:/var/lib/mysql
+      - ./back-end/database/setup_db.sql:/docker-entrypoint-initdb.d/setup_db.sql
     restart: always
 
   mongodb:

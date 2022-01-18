@@ -8,11 +8,12 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-
+// 1:N
 model User {
-  id    Int     @default(autoincrement()) @id
+  id    BigInt     @default(autoincrement()) @id
   email String  @unique
   name  String?
   posts Post[]
@@ -24,5 +25,5 @@ model Post {
   content   String?
   published Boolean?      @default(false)
   author    User?         @relation(fields: [authorId], references: [id])
-  authorId  Int?
+  authorId  BigInt?
 }
