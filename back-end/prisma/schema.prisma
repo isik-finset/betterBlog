@@ -22,13 +22,13 @@ model User {
 }
 
 model Post {
-  id         Int      @id @default(autoincrement())
-  title      String   @db.VarChar(500)
-  decription String   @db.VarChar(700)
-  body       String   @db.VarChar(5000)
-  topic      String   @db.VarChar(700)
-  author     User?    @relation(fields: [authorId], references: [id])
-  authorId   BigInt?
-  createdDt  DateTime @default(now())
-  mdfDt      DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(500)
+  description String   @db.VarChar(700)
+  body        String   @db.VarChar(5000)
+  topic       String   @db.VarChar(700)
+  author      User?    @relation(fields: [authorId], references: [id])
+  authorId    BigInt?
+  createdDt   DateTime @default(now())
+  mdfDt       DateTime @default(now())
 }
