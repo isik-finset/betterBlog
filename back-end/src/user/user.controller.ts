@@ -20,14 +20,15 @@ export class UserController {
 //   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   async getAllUsers() {
-    const resp = this.userService.getUsers();
+    const resp = await this.userService.getUsers();
     return resp;
   }
 
   // get a single user
   @Get('/:id')
   async getUserById(@Param('id') id: string): Promise<UserModel> {
-    return this.userService.getUser({ id: Number(id) });
+    const resp = await this.userService.getUser(id);
+    return resp;
   }
 
   // register user

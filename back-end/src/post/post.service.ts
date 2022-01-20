@@ -7,15 +7,15 @@ import { Post as PostModel, Prisma } from '@prisma/client';
 export class PostService {
   constructor(private prisma: PrismaService) {}
 
-  // return a single post
-  async post(postId, user): Promise<PostModel | null> {
+  // return all posts
+  async posts(): Promise<PostModel[]> {
     try {
-      const resp = await this.prisma.post.findFirst({
-        where: {
-          authorId: user.id,
-          id: postId,
-        },
-      });
+      const resp: any = await this.prisma.post.findMany();
+      for (const post of resp) {
+        post.id = post.id.toString();
+        post.authorId = post.authorId.toString();
+      }
+      console.log(resp);
       return resp;
     } catch (e) {
       console.error(e);
@@ -23,10 +23,18 @@ export class PostService {
     }
   }
 
-  // return all posts
-  async posts(): Promise<PostModel[]> {
+  // return a single post -- the logic can be used for updating a post
+  async post(id: any): Promise<PostModel | null> {
     try {
-      const resp = await this.prisma.post.findMany();
+      const resp: any = await this.prisma.post.findFirst({
+        where: {
+          //   authorId: user.id,
+          id: Number(id),
+        },
+      });
+      resp.id = resp.id.toString();
+      resp.authorId = resp.authorId.toString();
+      console.log(resp);
       return resp;
     } catch (e) {
       console.error(e);
@@ -37,15 +45,19 @@ export class PostService {
   // create post
   async createPost(data: any): Promise<PostModel> {
     try {
-      const resp = await this.prisma.post.create({
+      const resp: any = await this.prisma.post.create({
         data: {
           title: data.title,
           body: data.body,
           description: data.description,
           topic: data.topic,
-          authorId: 33,
+          author: {
+            connect: { id: data.authorId },
+          },
         },
       });
+      resp.authorId = resp.authorId.toString();
+      console.log(resp);
       return resp;
     } catch (e) {
       console.error(e);
@@ -54,16 +66,22 @@ export class PostService {
   }
 
   // update post
-  async updatePost(params: {
-    where: Prisma.PostWhereUniqueInput;
-    data: Prisma.PostUpdateInput;
-  }): Promise<PostModel> {
-    const { data, where } = params;
+  async updatePost(id: number, data: any): Promise<PostModel> {
     try {
-      const resp = await this.prisma.post.update({
-        data,
-        where,
+      const resp: any = await this.prisma.post.update({
+        where: {
+          id: Number(id),
+        },
+        data: {
+          title: data.title,
+          description: data.description,
+          body: data.body,
+          topic: data.topic,
+        },
       });
+      resp.id = resp.id.toString();
+      resp.authorId = resp.authorId.toString();
+      console.log(resp);
       return resp;
     } catch (e) {
       console.error(e);
@@ -76,9 +94,11 @@ export class PostService {
     try {
       const resp = await this.prisma.post.delete({
         where: {
-          id: id,
+          id: Number(id),
         },
       });
+      //   resp.id = resp.id.toString();
+      console.log(resp);
       return resp;
     } catch (e) {
       console.error(e);
@@ -86,58 +106,3 @@ export class PostService {
     }
   }
 }
-
-// @Injectable()
-// export class UserService {
-//   constructor(private readonly prismaService: PrismaService) {}
-
-//   // return all posts
-//   async getPosts(): Promise<PostModel[]> {
-//     try {
-//       const posts = await this.prismaService.post.findMany();
-//       return posts;
-//     } catch (e) {
-//       console.error(e);
-//       return e;
-//     }
-//   }
-
-//   // return a single post
-//   async getSinglePost(): Promise<PostModel[]> {
-//     try {
-
-//     } catch (e) {
-//         console.error(e);
-//         return e;
-//     }
-//   }
-
-//   // publish post
-//   async publishPost(registerData: CreatePostDto): Promise<PostModel> {
-//     try {
-//       const result = await this.prismaService.post.create({
-//         data: {
-//           title: registerData.title,
-//           description: registerData.description,
-//           body: registerData.body,
-//           topic: registerData.topic,
-//           author: registerData.author, // figure out the logic for author
-//         },
-//       });
-//       if (!result) {
-//         throw new HttpException(
-//           'internal server error',
-//           HttpStatus.INTERNAL_SERVER_ERROR,
-//         );
-//       }
-//       return result;
-//     } catch (e) {
-//       console.error(e);
-//       return e;
-//     }
-//   }
-
-//   // edit post
-
-//   // delete post
-// }

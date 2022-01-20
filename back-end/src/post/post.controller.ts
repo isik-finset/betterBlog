@@ -15,31 +15,30 @@ import { Post as PostModel } from '@prisma/client';
 import { JwtAuthGuard } from 'src/guards/auth.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthUser } from 'src/decorators/auth-user.decorator';
-import { userInfo } from 'os';
 @Controller('posts')
-export class UserController {
+export class PostController {
   constructor(private readonly postService: PostService) {}
 
   // get all posts
   @Get('/')
   @HttpCode(HttpStatus.OK)
-  async getAllPosts(): Promise<PostModel[]> {
+  async getAllPosts() {
     const resp = await this.postService.posts();
     return resp;
   }
 
   // get a single post
   @Get('/:id')
-  @UseGuards(JwtAuthGuard)
+  //   @UseGuards(JwtAuthGuard)
   async getUserById(
-    @AuthUser() user,
-    @Param('id') postId: number,
+    // @AuthUser() user,
+    @Param('id') id: string,
   ): Promise<PostModel> {
-    const resp = await this.postService.post(postId, user);
+    const resp = await this.postService.post(id);
     return resp;
   }
 
-  // post a Post
+  // create a Post
   @Post('/create')
   async registerUser(
     @Body()
@@ -51,15 +50,6 @@ export class UserController {
       authorId: number;
     },
   ): Promise<PostModel> {
-    const { title, description, body, topic, authorId } = postData;
-    // const resp = await this.postService.createPost({
-    //   title,
-    //   description,
-    //   body,
-    //   topic,
-    //   author: {
-    //     connect: { id: authorId }, // look into the User - Post connection
-    //   },
     const resp = await this.postService.createPost(postData);
     return resp;
   }
@@ -72,10 +62,12 @@ export class UserController {
   }
 
   // update a Post
-  // @Patch('/:id')
-  // async updatePost(@Param('id') id: string, @Body('')): Promise<PostModel> {
-  //     const resp = await this.postService.updatePost()
-  // }
-
-  //
+  @Patch('/:id')
+  async updatePost(
+    @Param('id') id: number,
+    @Body() data: any,
+  ): Promise<PostModel> {
+    const resp = await this.postService.updatePost(id, data);
+    return resp;
+  }
 }
