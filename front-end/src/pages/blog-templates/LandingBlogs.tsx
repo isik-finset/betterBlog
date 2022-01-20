@@ -19,6 +19,7 @@ interface LandingPageBlogsProps {
         id: string;
         title: string;
         description: string;
+        body: string;
         firstName: string;
         lastName: string;
         createdAt: string;

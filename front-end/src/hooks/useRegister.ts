@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
 
-// interface SignUpFormTypes {
-//     firstName?: string
-//     lastName?: string
-//     email?: string
-//     password?: string
-// }
-
 export default function useRegister <Type>(initialForm: Type) {
 
     const [ form, setForm ] = useState<Type>(initialForm)
@@ -18,6 +11,13 @@ export default function useRegister <Type>(initialForm: Type) {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         alert(JSON.stringify(form))
+        const data = new FormData(e.currentTarget);
+        console.log({
+            firsName: data.get('firstName'),
+            lastName: data.get('lastName'),
+            email: data.get('email'),
+            password: data.get('password'),
+    })
     }
 
     return {

@@ -15,10 +15,11 @@ const StyledLink = styled(Link)(({ theme }) => ({
 // ------------------------------------------------------------------------------------
 interface MyBlogsProps {
     props: {
-        _id: number,
-        id: string,
+        _id: number;
+        id: string;
         title: string;
         description: string;
+        body: string;
         firstName: string;
         lastName: string;
         createdAt: string;
