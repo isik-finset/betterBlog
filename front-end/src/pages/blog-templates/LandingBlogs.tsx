@@ -40,7 +40,7 @@ const Blogs = ({ props }: LandingPageBlogsProps) => {
                 By {firstName} {lastName}
             </Typography>
             <Typography variant="h6" fontWeight="bold" sx={{ cursor: "pointer" }} >
-                <StyledLink to={{ pathname: `/single-post/${_id}` }}>
+                <StyledLink to={`/single-post/${_id}`} state={{ state: props }}>
                     {title}
                 </StyledLink>
             </Typography>
