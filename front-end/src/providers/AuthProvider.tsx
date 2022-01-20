@@ -1,5 +1,5 @@
 // react
-import React, { useState, createContext, FC, useEffect } from 'react';
+import { useState, createContext, FC, useEffect } from 'react';
 // types
 import { TokenContextState } from 'src/types/types';
 // router

@@ -31,7 +31,7 @@ export default function Router() {
         { path: '/login', element: <LoginPage /> },
         { path: '/register', element: <Register /> },
         { path: '/user-profile', element: <PrivateRoute><UserProfilePage /></PrivateRoute> }, // protected route
-        { path: '/single-post', element: <SinglePost /> }, // protected route
+        { path: '/single-post/:id', element: <SinglePost /> }, // protected route
         { path: '/my-posts', element: <PrivateRoute><MyPosts /></PrivateRoute> }, // protected route
         { path: '/write-post', element: <PrivateRoute><WritePost /></PrivateRoute> }, // protected route
         { path: '/edit-post', element: <PrivateRoute><EditPost /></PrivateRoute> } // protected route

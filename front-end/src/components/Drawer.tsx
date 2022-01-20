@@ -8,9 +8,8 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
 import useAuth from 'src/hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const StyledLink = styled(Link)(({ theme }) => ({
     textDecoration: "none",

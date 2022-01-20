@@ -41,6 +41,10 @@ const Blog = ({ props }: BlogProps) => {
                 <Typography variant="caption" color="text.secondary">
                     {createdAt} ( {readTime} min read )
                 </Typography>
+                <br />
+                <Typography variant='caption' color="text.primary" paragraph>
+                    {topic}
+                </Typography>
             </Box>
             <Box my={3}>
                 <Typography variant="h6" color="text.secondary">

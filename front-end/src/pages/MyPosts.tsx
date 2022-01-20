@@ -33,6 +33,8 @@ export default function MyPosts() {
     const [list, setList] = useState<MyPostsProps[]>([])
 
     const testProps = [{
+        _id: 1,
+        id: '1',
         title: 'Most Americans Have No Clue What Immunocompromised Means',
         description: 'Let’s understand who the immunocompromised are. And this is a very lazy description for the blog',
         topic: 'React',
@@ -42,6 +44,8 @@ export default function MyPosts() {
         readTime: '6'
     },
     {
+        _id: 2,
+        id: '2',
         title: 'Most Americans Have No Clue What Immunocompromised Means',
         description: 'Let’s understand who the immunocompromised are. And this is a very lazy description for the blog',
         topic: 'Vue',
@@ -70,7 +74,7 @@ export default function MyPosts() {
                 <Box>
                     <ImageFeature post={imageFeaturePost} />
                     {testProps.map((item, i, arr) => (
-                        <MyBlogs key={i} props={item} />
+                        <MyBlogs key={item.id} props={item} />
                     )
                     )}
                 </Box>
