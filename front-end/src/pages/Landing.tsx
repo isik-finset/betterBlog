@@ -96,7 +96,7 @@ export default function LandingPage() {
         <Box>
           <ImageFeature post={imageFeaturePost} />
           {testProps.map((item, i, arr) => (
-            <Blogs key={item.id} props={item} />
+            <Blogs key={item.id} props={item} /> // {...item} props could be changed to this
           )
           )}
         </Box>

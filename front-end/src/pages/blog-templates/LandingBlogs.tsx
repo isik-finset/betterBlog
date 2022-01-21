@@ -29,7 +29,7 @@ interface LandingPageBlogsProps {
 }
 
 // ------------------------------------------------------------------------------------
-
+// const Blogs = (props: LandingPageBlogsProps) => {
 const Blogs = ({ props }: LandingPageBlogsProps) => {
     const theme = useTheme();
 

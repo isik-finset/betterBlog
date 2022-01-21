@@ -37,10 +37,11 @@ export default function LandingPage() {
   // hooks
   const { logIn } = useAuth();
   const { form, handleChange, emailValidation } = useLogin(defaultValues);
-
+ // errors, isValid
 
   // submit form -> validate -> login
   const onSubmit = async (e: React.MouseEvent<HTMLElement>) => {
+  // const onSubmit = async (values: any) => {
     e.preventDefault();
     const isEmailValid = emailValidation(form.email);
     !isEmailValid ? setEmailHelperText("Email address is invalid") : setEmailHelperText("")
@@ -57,7 +58,8 @@ export default function LandingPage() {
           console.log(result);
           logIn(result.data.accessToken)
           console.log(result.data.accessToken);
-          navigate('/landing')
+          navigate('/landing')  // guard should be responsible for navigation
+          // move fetch to context
         }
       } catch (e) {
         // alert('there is something wrong')
@@ -68,6 +70,10 @@ export default function LandingPage() {
       setMessage("Wrong Email or Password. Try Again.")
     }
 
+  }
+
+  const fn1 = () => () => {
+    // 
   }
 
   return (
@@ -112,8 +118,8 @@ export default function LandingPage() {
             />
             <FormHelperText sx={{ color: '#ff2020', textAlign: 'center' }} children={message} />
             <Button
-              component="button"
-              onClick={onSubmit}
+              type="submit"       
+              // onClick={onSubmit}
               fullWidth
               variant="contained"
               color="secondary"

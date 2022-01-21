@@ -37,6 +37,11 @@ const AuthProvider: FC = ({ children }) => {
     const [isAuth, setIsAuth] = useState<boolean>(false);
     const [user, setUser] = useState(contextDefaultValues.user)
     console.log(isAuth);
+    // const [s, setS] = useState({
+    //     isAuth: '',
+    //     user: ...
+    //     isInit: ...
+    // })
 
     // helper methods
     const updateUser = (newUser: {}) => { setUser(newUser) };
@@ -46,11 +51,21 @@ const AuthProvider: FC = ({ children }) => {
     // initialRender: validUserToken ? authorize : don't authorize
     useEffect(() => {
         const init = async () => {
+
+            // fetch
+
+                // isInit,  isAuth, user
+
+                // !isAuth {}
+
+                // catch !isAuth {}
+
             const userToken = localStorage.getItem('token')
             userToken ? fetchUserData(userToken) : setIsAuth(false)
         }
 
         init();
+        
     }, [])
 
 
