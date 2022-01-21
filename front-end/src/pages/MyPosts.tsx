@@ -56,17 +56,17 @@ export default function MyPosts() {
     },
     ]
 
-    // useEffect(() => {
-    //     axiosInstance
-    //     .get('/api/account/myposts')
-    //     .then(({ data }) => {
-    //         console.log(data);
-    //         setList(data.items);
-    //     })
-    //     .catch((e) => {
-    //         console.error(e);
-    //     });
-    // }, [])
+    useEffect(() => {
+        axiosInstance
+            .get('/api/account/myposts')
+            .then(({ data }) => {
+                console.log(data);
+                setList(data.items);
+            })
+            .catch((e) => {
+                console.error(e);
+            });
+    }, [])
 
     return (
         <Page title="Single Post Page">

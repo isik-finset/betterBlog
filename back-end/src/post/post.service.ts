@@ -105,4 +105,65 @@ export class PostService {
       return e;
     }
   }
+  // return all posts for a given user
+  async singlePosts(id: number): Promise<any> {
+    try {
+      const userId = Number(id);
+      const resp: any = await this.prisma.post.findMany({
+        where: {
+          authorId: userId,
+        },
+      });
+      const user: any = await this.prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+      });
+      user.id = user.id.toString();
+      for (const post of resp) {
+        post.id = post.id.toString();
+        post.authorId = post.authorId.toString();
+      }
+      console.log(resp);
+      const response = {
+        user: user,
+        posts: resp,
+      };
+      return response;
+    } catch (e) {
+      console.error(e);
+      return e;
+    }
+  }
+
+  // return a single post with a user
+  async postAndUser(id: any): Promise<any> {
+    try {
+      const postId = Number(id);
+      const resp: any = await this.prisma.post.findFirst({
+        where: {
+          id: postId,
+        },
+      });
+      const user: any = await this.prisma.user.findFirst({
+        where: {
+          id: resp.authorId,
+        },
+      });
+      user.id = user.id.toString();
+      for (const post of resp) {
+        post.id = post.id.toString();
+        post.authorId = post.authorId.toString();
+      }
+      console.log(resp);
+      const response = {
+        user: user,
+        posts: resp,
+      };
+      return response;
+    } catch (e) {
+      console.error(e);
+      return e;
+    }
+  }
 }

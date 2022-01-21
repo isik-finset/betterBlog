@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 // axios
-import axiosInstance from 'src/utils/axios';
+import { axiosInst } from 'src/utils/axios';
 
 // MUI
 import { Box } from '@mui/material'
@@ -20,18 +20,18 @@ import Container from '@mui/material/Container';
 import Footer from './blog-templates/Footer';
 
 
-
 // ------------------------------------------------------------------------------------
 interface LandingPageType {
-  _id: number;
+  // _id: number;
   id: string;
+  authorId: string;
   createdAt: string;
-  firstName: string;
-  lastName: string;
+  // firstName: string;
+  // lastName: string;
   title: string;
   description: string;
   topic: string
-  readTime: string;
+  // readTime: string;
 };
 
 // ------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ export default function LandingPage() {
     readTime: '6'
   },
   {
-    _id: 3,
+    _id: 4,
     id: "3",
     title: 'Most Americans Have No Clue What Immunocompromised Means',
     description: 'Let’s understand who the immunocompromised are. And this is a very lazy description for the blog',
@@ -75,24 +75,25 @@ export default function LandingPage() {
   }
   ]
 
-  // useEffect(() => {
-  //     axiosInstance
-  //     .get('/api/account/posts')
-  //     .then(({ data }) => {
-  //         console.log(data);
-  //         setList(data.items);
-  //     })
-  //     .catch((e) => {
-  //         console.error(e);
-  //     });
-  // }, [])
+  useEffect(() => {
+    axiosInst
+      .get('/posts')
+      .then((data) => {
+        console.log(data);
+        setList(data.data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, [])
 
+  console.log(list);
   return (
     <Page title="Single Post Page">
       <Container maxWidth='md' sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Box>
           <ImageFeature post={imageFeaturePost} />
-          {testProps.map((item, i, arr) => (
+          {list.map((item, i, arr) => (
             <Blogs key={item.id} props={item} />
           )
           )}

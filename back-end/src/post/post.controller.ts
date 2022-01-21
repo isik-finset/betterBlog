@@ -38,6 +38,13 @@ export class PostController {
     return resp;
   }
 
+  // get all posts of a given user
+  @Get('/user/:id')
+  async getPostById(@Param('id') id: number): Promise<PostModel> {
+    const resp = await this.postService.singlePosts(id);
+    return resp;
+  }
+
   // create a Post
   @Post('/create')
   async registerUser(

@@ -17,7 +17,7 @@ export class UserController {
 
   // get all users
   @Get('/')
-//   @UseGuards(JwtAuthGuard)
+  //   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   async getAllUsers() {
     const resp = await this.userService.getUsers();

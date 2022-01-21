@@ -8,14 +8,17 @@ import ImageFeature from './ImageFeature';
 // ------------------------------------------------------------------------------------
 interface BlogProps {
     props: {
+        // _id: number,
+        id: string;
+        createdAt: string;
+        // firstName: string;
+        // lastName: string;
+        // email: string;
         title: string;
         description: string;
-        body: string;   // ReadonlyArray<string>;
-        firstName: string;
-        lastName: string;
-        createdAt: string;
-        topic: string;
-        readTime: string;
+        body: string
+        topic: string
+        // readTime: string;
     }
 }
 
@@ -23,7 +26,7 @@ interface BlogProps {
 
 const Blog = ({ props }: BlogProps) => {
 
-    const { title, body, description, firstName, lastName, topic, readTime, createdAt } = props;
+    const { title, body, description, topic, createdAt } = props;
 
     return (
         <Box  >
@@ -34,13 +37,13 @@ const Blog = ({ props }: BlogProps) => {
             </Typography>
 
             <Box>
-                <Typography variant="caption">
+                {/* <Typography variant="caption">
                     By {firstName} {lastName}
-                </Typography>
+                </Typography> */}
                 <br />
-                <Typography variant="caption" color="text.secondary">
+                {/* <Typography variant="caption" color="text.secondary">
                     {createdAt} ( {readTime} min read )
-                </Typography>
+                </Typography> */}
                 <br />
                 <Typography variant='caption' color="text.primary" paragraph>
                     {topic}

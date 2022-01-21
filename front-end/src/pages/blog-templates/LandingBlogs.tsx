@@ -15,15 +15,16 @@ const StyledLink = styled(Link)(({ theme }) => ({
 // ------------------------------------------------------------------------------------
 interface LandingPageBlogsProps {
     props: {
-        _id: number;
+        // _id: number;
         id: string;
+        authorId: string;
+        createdAt: string;
+        // firstName: string;
+        // lastName: string;
         title: string;
         description: string;
-        firstName: string;
-        lastName: string;
-        createdAt: string;
-        topic: string;
-        readTime: string;
+        topic: string
+        // readTime: string;
     }
 }
 
@@ -32,24 +33,24 @@ interface LandingPageBlogsProps {
 const Blogs = ({ props }: LandingPageBlogsProps) => {
     const theme = useTheme();
 
-    const { title, description, firstName, lastName, topic, readTime, createdAt, _id, id } = props;
+    const { title, description, topic, createdAt, id, authorId } = props;
 
     return (
         <Box marginBottom="20px">
-            <Typography variant="caption">
+            {/* <Typography variant="caption">
                 By {firstName} {lastName}
-            </Typography>
+            </Typography> */}
             <Typography variant="h6" fontWeight="bold" sx={{ cursor: "pointer" }} >
-                <StyledLink to={`/single-post/${_id}`} state={{ state: props }}>
+                <StyledLink to={`/single-post/${id}`} state={{ state: props }}>
                     {title}
                 </StyledLink>
             </Typography>
             <Typography variant="subtitle2" color="text.secondary">
                 {description}
             </Typography>
-            <Typography variant="caption" color="text.secondary">
+            {/* <Typography variant="caption" color="text.secondary">
                 {createdAt} ( {readTime} min read )
-            </Typography>
+            </Typography> */}
             <Typography variant='caption' color='text.primary' paragraph>
                 {topic}
             </Typography>
