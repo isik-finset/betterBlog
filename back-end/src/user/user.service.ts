@@ -57,4 +57,20 @@ export class UserService {
       return e;
     }
   }
+
+  // findOne user
+  async findOne(email: string): Promise<UserModel> {
+    try {
+      const resp: any = await this.prisma.user.findFirst({
+        where: {
+          email: email,
+        },
+      });
+      console.log(resp);
+      return resp;
+    } catch (e) {
+      console.error(e);
+      return e;
+    }
+  }
 }

@@ -12,9 +12,7 @@ import {
 } from '@nestjs/common';
 import { PostService } from 'src/post/post.service';
 import { Post as PostModel } from '@prisma/client';
-import { JwtAuthGuard } from 'src/guards/auth.guard';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthUser } from 'src/decorators/auth-user.decorator';
 @Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}

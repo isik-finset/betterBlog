@@ -6,14 +6,23 @@ import {
   HttpStatus,
   Param,
   Post,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { User as UserModel } from '@prisma/client';
-import { JwtAuthGuard } from 'src/guards/auth.guard';
+import { AuthGuard } from '@nestjs/passport';
+
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  // login
+  @UseGuards(AuthGuard('local'))
+  @Post('/auth/login')
+  async login(@Request() req) {
+    return req.user;
+  }
 
   // get all users
   @Get('/')
