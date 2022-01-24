@@ -61,7 +61,7 @@ export class UserService {
   // findOne user
   async findOne(email: string): Promise<UserModel> {
     try {
-      const resp: any = await this.prisma.user.findFirst({
+      const resp: any = await this.prisma.user.findUnique({
         where: {
           email: email,
         },

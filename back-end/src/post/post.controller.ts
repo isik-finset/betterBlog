@@ -13,6 +13,7 @@ import {
 import { PostService } from 'src/post/post.service';
 import { Post as PostModel } from '@prisma/client';
 import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 @Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}
@@ -27,7 +28,7 @@ export class PostController {
 
   // get a single post
   @Get('/:id')
-  //   @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   async getUserById(
     // @AuthUser() user,
     @Param('id') id: string,
