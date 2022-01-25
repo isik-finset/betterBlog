@@ -1,9 +1,9 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { Post as PostModel } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
-
-import { Post as PostModel, Prisma } from '@prisma/client';
 import { CreatePostDto } from './post_dto/post.dto';
 
+// ---------------------------------------------------------------------------------
 @Injectable()
 export class PostService {
   constructor(private prisma: PrismaService) {}
@@ -23,7 +23,7 @@ export class PostService {
     }
   }
 
-  // return a single post -- the logic can be used for updating a post
+  // return a single post
   async post(id: any): Promise<any> {
     try {
       const resp: any = await this.prisma.post.findFirst({
@@ -41,7 +41,7 @@ export class PostService {
     }
   }
 
-  // create post
+  // create a Post
   async createPost(data: CreatePostDto): Promise<PostModel> {
     try {
       const resp: any = await this.prisma.post.create({
@@ -66,7 +66,7 @@ export class PostService {
     }
   }
 
-  // delete post
+  // delete a Post
   async deletePost(id: number): Promise<PostModel> {
     try {
       const resp = await this.prisma.post.delete({
@@ -83,8 +83,8 @@ export class PostService {
     }
   }
 
-  // update post
-  async updatePost(id: number, data: any): Promise<PostModel> {
+  // update a Post
+  async updatePost(id: number, data: CreatePostDto): Promise<PostModel> {
     try {
       const resp: any = await this.prisma.post.update({
         where: {
@@ -101,68 +101,6 @@ export class PostService {
       resp.authorId = resp.authorId.toString();
       console.log(resp);
       return resp;
-    } catch (e) {
-      console.error(e);
-      return e;
-    }
-  }
-
-  // // return all posts for a given user
-  // async singlePosts(id: number): Promise<any> {
-  //   try {
-  //     const userId = Number(id);
-  //     const resp: any = await this.prisma.post.findMany({
-  //       where: {
-  //         authorId: userId,
-  //       },
-  //     });
-  //     const user: any = await this.prisma.user.findUnique({
-  //       where: {
-  //         id: userId,
-  //       },
-  //     });
-  //     user.id = user.id.toString();
-  //     for (const post of resp) {
-  //       post.id = post.id.toString();
-  //       post.authorId = post.authorId.toString();
-  //     }
-  //     console.log(resp);
-  //     const response = {
-  //       user: user,
-  //       posts: resp,
-  //     };
-  //     return response;
-  //   } catch (e) {
-  //     console.error(e);
-  //     return e;
-  //   }
-  // }
-
-  // return a single post with a user
-  async postAndUser(id: any): Promise<any> {
-    try {
-      const postId = Number(id);
-      const resp: any = await this.prisma.post.findFirst({
-        where: {
-          id: postId,
-        },
-      });
-      const user: any = await this.prisma.user.findFirst({
-        where: {
-          id: resp.authorId,
-        },
-      });
-      user.id = user.id.toString();
-      for (const post of resp) {
-        post.id = post.id.toString();
-        post.authorId = post.authorId.toString();
-      }
-      console.log(resp);
-      const response = {
-        user: user,
-        posts: resp,
-      };
-      return response;
     } catch (e) {
       console.error(e);
       return e;

@@ -12,9 +12,10 @@ import {
 } from '@nestjs/common';
 import { PostService } from 'src/post/post.service';
 import { Post as PostModel } from '@prisma/client';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreatePostDto, CreatePostResponseDto } from './post_dto/post.dto';
+
+// ---------------------------------------------------------------------------------
 @Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}
@@ -29,14 +30,15 @@ export class PostController {
 
   // get a single post
   @Get('/:id')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   async getUserById(@Param('id') id: string): Promise<any> {
     const resp = await this.postService.post(id);
     return resp;
   }
 
-  // create a Post
+  // create a Post ---> Private Route
   @Post('/create')
+  @UseGuards(JwtAuthGuard)
   async registerUser(
     @Body() postData: CreatePostDto,
   ): Promise<CreatePostResponseDto> {
@@ -45,27 +47,23 @@ export class PostController {
     return resp;
   }
 
-  // delete a post
+  // delete a post ---> Private Route
+  @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   async deletePost(@Param('id') id: number): Promise<PostModel> {
     const resp = await this.postService.deletePost(id);
     return resp;
   }
 
-  // update a Post
+  // update a Post ---> Private Route
+  @UseGuards(JwtAuthGuard)
   @Patch('/:id')
   async updatePost(
     @Param('id') id: number,
-    @Body() data: any,
-  ): Promise<PostModel> {
-    const resp = await this.postService.updatePost(id, data);
+    @Body() data: CreatePostDto,
+  ): Promise<CreatePostResponseDto> {
+    const result = await this.postService.updatePost(id, data);
+    const resp = new CreatePostResponseDto(result);
     return resp;
   }
-
-  // // get all posts of a given user
-  // @Get('/user/:id')
-  // async getPostById(@Param('id') id: number): Promise<PostModel> {
-  //   const resp = await this.postService.singlePosts(id);
-  //   return resp;
-  // }
 }

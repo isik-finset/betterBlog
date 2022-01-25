@@ -1,9 +1,9 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-// import { PrismaClient } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
+import { User as UserModel } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { RegisterDto, RegisterResponseDto } from './user_dto/register.dto';
-import { Prisma, User as UserModel } from '@prisma/client';
 
+// ---------------------------------------------------------------------------------
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
@@ -48,7 +48,6 @@ export class UserService {
       // FIXME: exception
       console.error(`User with this ID does not exist: ${e}`);
     }
-
     const resp: any = await this.prisma.user.findFirst({
       where: { id: BigInt(user.id), email: user.email },
       include: {
@@ -76,20 +75,4 @@ export class UserService {
       return e;
     }
   }
-
-  // // findOne user
-  // async findOne(email: string): Promise<UserModel> {
-  //   try {
-  //     const resp: any = await this.prisma.user.findUnique({
-  //       where: {
-  //         email: email,
-  //       },
-  //     });
-  //     console.log(resp);
-  //     return resp;
-  //   } catch (e) {
-  //     console.error(e);
-  //     return e;
-  //   }
-  // }
 }

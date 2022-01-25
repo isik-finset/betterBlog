@@ -10,6 +10,9 @@ import {
 } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { RegisterDto, RegisterResponseDto } from './user_dto/register.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+
+// ---------------------------------------------------------------------------------
 
 @Controller('user')
 export class UserController {
@@ -17,7 +20,7 @@ export class UserController {
 
   // get all users
   @Get('/')
-  //   @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   async getAllUsers() {
     const resp = await this.userService.getUsers();
@@ -26,12 +29,14 @@ export class UserController {
 
   // get a single user
   @Get('/:id')
+  @UseGuards(JwtAuthGuard)
   async getUserById(@Param('id') id: number): Promise<any> {
     const result = await this.userService.getUser(id);
     return result;
   }
 
   // get a single user's all posts
+  @UseGuards(JwtAuthGuard)
   @Get('/:id/posts')
   async getUserPostById(@Param('id') id: number): Promise<any> {
     const result = await this.userService.getUserPosts(id);
