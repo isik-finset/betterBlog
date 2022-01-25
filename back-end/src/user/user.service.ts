@@ -23,11 +23,11 @@ export class UserService {
   }
 
   // get a single user -- dto has been added
-  async getUser(id: number): Promise<RegisterResponseDto> {
+  async getUser(id: number): Promise<any> {
     try {
       const resp: any = await this.prisma.user.findFirst({
         where: {
-          id: id,
+          id: BigInt(id),
         },
       });
       resp.id = resp.id.toString();
@@ -42,18 +42,19 @@ export class UserService {
     // get user info
     let user: RegisterResponseDto;
     try {
-      user = await this.getUser(id)  
-    } catch (error) {
+      user = await this.getUser(id);
+    } catch (e) {
       // FIXME: exception
+      console.error(`User with this ID does not exist: ${e}`);
     }
-    
+
     const resp: any = await this.prisma.user.findFirst({
-      where: { id: user.id, email: user.email },
+      where: { id: BigInt(user.id), email: user.email },
       include: {
-        posts: true
-      }
+        posts: true,
+      },
     });
-    console.log("🚀 ~ UserService ~ getUserPosts ~ resp", resp);
+    console.log('🚀 ~ UserService ~ getUserPosts ~ resp', resp);
     return resp.posts;
   }
 
