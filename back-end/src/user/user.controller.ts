@@ -27,9 +27,18 @@ export class UserController {
   }
 
   // get a single user
+  @Get('/:id/posts')
+  async getUserPostById(
+    @Param('id') id: number,
+  ): Promise<any> {
+    const result = await this.userService.getUserPosts(id);
+    return result;
+  }
+
+  // get a single user
   @Get('/:id')
   async getUserById(
-    @Param('id') id: RegisterResponseDto,
+    @Param('id') id: number,
   ): Promise<RegisterResponseDto> {
     const result = await this.userService.getUser(id);
     return result;

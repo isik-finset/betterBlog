@@ -23,11 +23,11 @@ export class UserService {
   }
 
   // get a single user -- dto has been added
-  async getUser(id: any): Promise<RegisterResponseDto> {
+  async getUser(id: number): Promise<RegisterResponseDto> {
     try {
       const resp: any = await this.prisma.user.findFirst({
         where: {
-          id: BigInt(id),
+          id: id,
         },
       });
       resp.id = resp.id.toString();
@@ -36,6 +36,25 @@ export class UserService {
       console.error(e);
       return e;
     }
+  }
+
+  async getUserPosts(id: number): Promise<any> {
+    // get user info
+    let user: RegisterResponseDto;
+    try {
+      user = await this.getUser(id)  
+    } catch (error) {
+      // FIXME: exception
+    }
+    
+    const resp: any = await this.prisma.user.findFirst({
+      where: { id: user.id, email: user.email },
+      include: {
+        posts: true
+      }
+    });
+    console.log("🚀 ~ UserService ~ getUserPosts ~ resp", resp);
+    return resp.posts;
   }
 
   // register a user -- dto has been added

@@ -28,7 +28,7 @@ export class RegisterResponseDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  readonly id: string;
+  readonly id: bigint;
 
   @ApiProperty()
   @IsString()
