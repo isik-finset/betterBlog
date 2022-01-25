@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreatePostDto } from './post_dto/create_post.dto';
+
 import { Post as PostModel, Prisma } from '@prisma/client';
 
 @Injectable()

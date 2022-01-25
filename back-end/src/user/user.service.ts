@@ -1,7 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 // import { PrismaClient } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
-import { RegisterDto } from './user_dto/register.dto';
+import { RegisterDto, RegisterResponseDto } from './user_dto/register.dto';
 import { Prisma, User as UserModel } from '@prisma/client';
 
 @Injectable()
@@ -12,7 +12,6 @@ export class UserService {
   async getUsers(): Promise<UserModel[]> {
     try {
       const resp: any = await this.prisma.user.findMany();
-      //   const result: any = []
       for (const user of resp) {
         user.id = user.id.toString();
       }
@@ -23,8 +22,8 @@ export class UserService {
     }
   }
 
-  // get a single user
-  async getUser(id: any): Promise<UserModel | null> {
+  // get a single user -- dto has been added
+  async getUser(id: any): Promise<RegisterResponseDto> {
     try {
       const resp: any = await this.prisma.user.findFirst({
         where: {
@@ -39,10 +38,10 @@ export class UserService {
     }
   }
 
-  // register a user
-  async registerUser(data: any): Promise<UserModel> {
+  // register a user -- dto has been added
+  async registerUser(data: RegisterDto): Promise<UserModel> {
     try {
-      const resp: any = await this.prisma.user.create({
+      const resp = await this.prisma.user.create({
         data: {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -50,7 +49,6 @@ export class UserService {
           password: data.password,
         },
       });
-      resp.id = resp.id.toString();
       return resp;
     } catch (e) {
       console.error(e);

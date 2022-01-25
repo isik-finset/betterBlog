@@ -14,6 +14,7 @@ import { PostService } from 'src/post/post.service';
 import { Post as PostModel } from '@prisma/client';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { CreatePostResponseDto } from './post_dto/post.dto';
 @Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}

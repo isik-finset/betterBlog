@@ -11,18 +11,11 @@ import {
 } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { User as UserModel } from '@prisma/client';
-
+import { RegisterDto, RegisterResponseDto } from './user_dto/register.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
-  // // login
-  // @UseGuards(AuthGuard('local'))
-  // @Post('/auth/login')
-  // async login(@Request() req) {
-  //   return req.user;
-  // }
 
   // get all users
   @Get('/')
@@ -35,23 +28,20 @@ export class UserController {
 
   // get a single user
   @Get('/:id')
-  async getUserById(@Param('id') id: string): Promise<UserModel> {
-    const resp = await this.userService.getUser(id);
-    return resp;
+  async getUserById(
+    @Param('id') id: RegisterResponseDto,
+  ): Promise<RegisterResponseDto> {
+    const result = await this.userService.getUser(id);
+    return result;
   }
 
-  // register user
-  @Post('/register')
+  // register user -- dto has been added
+  @Post('/signup')
   async registerUser(
-    @Body()
-    userData: {
-      firstName: string;
-      lastName: string;
-      email: string;
-      password: string;
-    },
-  ): Promise<UserModel> {
-    const resp = await this.userService.registerUser(userData);
+    @Body() userData: RegisterDto,
+  ): Promise<RegisterResponseDto> {
+    const result = await this.userService.registerUser(userData);
+    const resp = new RegisterResponseDto(result);
     return resp;
   }
 }
