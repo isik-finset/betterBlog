@@ -6,11 +6,9 @@ import {
   HttpStatus,
   Param,
   Post,
-  Request,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
-import { User as UserModel } from '@prisma/client';
 import { RegisterDto, RegisterResponseDto } from './user_dto/register.dto';
 
 @Controller('user')

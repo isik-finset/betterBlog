@@ -29,6 +29,8 @@ model Post {
   topic       String   @db.VarChar(700)
   author      User?    @relation(fields: [authorId], references: [id])
   authorId    BigInt?
+  firstName   String   @db.VarChar(88)
+  lastName    String   @db.VarChar(88)
   createdDt   DateTime @default(now())
   mdfDt       DateTime @default(now())
 }

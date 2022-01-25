@@ -14,7 +14,7 @@ import { PostService } from 'src/post/post.service';
 import { Post as PostModel } from '@prisma/client';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { CreatePostResponseDto } from './post_dto/post.dto';
+import { CreatePostDto, CreatePostResponseDto } from './post_dto/post.dto';
 @Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}
@@ -30,34 +30,18 @@ export class PostController {
   // get a single post
   @Get('/:id')
   @UseGuards(JwtAuthGuard)
-  async getUserById(
-    // @AuthUser() user,
-    @Param('id') id: string,
-  ): Promise<PostModel> {
+  async getUserById(@Param('id') id: string): Promise<any> {
     const resp = await this.postService.post(id);
-    return resp;
-  }
-
-  // get all posts of a given user
-  @Get('/user/:id')
-  async getPostById(@Param('id') id: number): Promise<PostModel> {
-    const resp = await this.postService.singlePosts(id);
     return resp;
   }
 
   // create a Post
   @Post('/create')
   async registerUser(
-    @Body()
-    postData: {
-      title: string;
-      description: string;
-      body: string;
-      topic: string;
-      authorId: number;
-    },
-  ): Promise<PostModel> {
-    const resp = await this.postService.createPost(postData);
+    @Body() postData: CreatePostDto,
+  ): Promise<CreatePostResponseDto> {
+    const result = await this.postService.createPost(postData);
+    const resp = new CreatePostResponseDto(result);
     return resp;
   }
 
@@ -77,4 +61,11 @@ export class PostController {
     const resp = await this.postService.updatePost(id, data);
     return resp;
   }
+
+  // // get all posts of a given user
+  // @Get('/user/:id')
+  // async getPostById(@Param('id') id: number): Promise<PostModel> {
+  //   const resp = await this.postService.singlePosts(id);
+  //   return resp;
+  // }
 }

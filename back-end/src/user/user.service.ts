@@ -38,6 +38,7 @@ export class UserService {
     }
   }
 
+  // get a single user's all posts
   async getUserPosts(id: number): Promise<any> {
     // get user info
     let user: RegisterResponseDto;
@@ -76,19 +77,19 @@ export class UserService {
     }
   }
 
-  // findOne user
-  async findOne(email: string): Promise<UserModel> {
-    try {
-      const resp: any = await this.prisma.user.findUnique({
-        where: {
-          email: email,
-        },
-      });
-      console.log(resp);
-      return resp;
-    } catch (e) {
-      console.error(e);
-      return e;
-    }
-  }
+  // // findOne user
+  // async findOne(email: string): Promise<UserModel> {
+  //   try {
+  //     const resp: any = await this.prisma.user.findUnique({
+  //       where: {
+  //         email: email,
+  //       },
+  //     });
+  //     console.log(resp);
+  //     return resp;
+  //   } catch (e) {
+  //     console.error(e);
+  //     return e;
+  //   }
+  // }
 }
