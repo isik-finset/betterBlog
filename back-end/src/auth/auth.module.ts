@@ -13,7 +13,7 @@ export const jwtSecret = 'betterBlogToyProject'; // should move it into the .env
     JwtModule.register({
       secret: jwtSecret,
       signOptions: {
-        expiresIn: '560s',
+        expiresIn: '2h',
       },
     }),
   ],

@@ -26,6 +26,7 @@ export class AuthService {
 
     return {
       accessToken: this.jwtService.sign({ userId: user.id.toString() }),
+      userId: user.id.toString(),
     };
   }
   validateUser(userId: string) {

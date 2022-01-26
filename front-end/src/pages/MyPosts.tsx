@@ -31,6 +31,7 @@ interface MyPostsProps {
 export default function MyPosts() {
 
     const [list, setList] = useState<MyPostsProps[]>([])
+    const [userId, setUserId] = useState('');
 
     const testProps = [{
         _id: 1,
@@ -57,8 +58,9 @@ export default function MyPosts() {
     ]
 
     useEffect(() => {
+        const userId = localStorage.getItem('id')
         axiosInstance
-            .get('/api/account/myposts')
+            .get(`user/${userId}/posts`)
             .then(({ data }) => {
                 console.log(data);
                 setList(data.items);
