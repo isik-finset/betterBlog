@@ -1,12 +1,12 @@
 // MUI
-import { Box, Typography, styled, useTheme } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 
 // react-router-dom
 import { Link } from 'react-router-dom';
 
 // ------------------------------------------------------------------------------------
 
-const StyledLink = styled(Link)(({ theme }) => ({
+const StyledLink = styled(Link)(() => ({
     textDecoration: "none",
     color: 'black',
 }))
@@ -15,15 +15,15 @@ const StyledLink = styled(Link)(({ theme }) => ({
 // ------------------------------------------------------------------------------------
 interface MyBlogsProps {
     props: {
-        _id: number,
+        // _id: number,
         id: string,
         title: string;
         description: string;
         firstName: string;
         lastName: string;
-        createdAt: string;
+        createdDt: string;
         topic: string;
-        readTime: string;
+        // readTime: string;
     }
 }
 
@@ -31,7 +31,7 @@ interface MyBlogsProps {
 
 const MyBlogs = ({ props }: MyBlogsProps) => {
 
-    const { title, description, firstName, lastName, topic, readTime, createdAt, id, _id } = props;
+    const { title, description, firstName, lastName, topic, createdDt, id } = props;
 
     return (
         <Box marginBottom={"20px"}>
@@ -39,7 +39,7 @@ const MyBlogs = ({ props }: MyBlogsProps) => {
                 By {firstName} {lastName}
             </Typography>
             <Typography variant="h6" fontWeight="bold" sx={{ cursor: "pointer" }}>
-                <StyledLink to={`/single-post/${_id}`} state={{ state: props }}>
+                <StyledLink to={`/single-post/${id}`} state={{ state: props }}>
                     {title}
                 </StyledLink>
             </Typography>
@@ -47,7 +47,7 @@ const MyBlogs = ({ props }: MyBlogsProps) => {
                 {description}
             </Typography>
             <Typography variant="caption" color="text.secondary">
-                {createdAt} ( {readTime} min read )
+                {createdDt.split('T')[0]} ( {6} min read )
             </Typography>
             <Typography variant="caption" color="text.primary" paragraph>
                 {topic}

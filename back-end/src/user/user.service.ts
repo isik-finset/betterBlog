@@ -22,7 +22,7 @@ export class UserService {
     }
   }
 
-  // get a single user -- dto has been added
+  // get a single user -- dto has been added // FIXME: need to remove the user password from the response
   async getUser(id: number): Promise<any> {
     try {
       const resp: any = await this.prisma.user.findFirst({

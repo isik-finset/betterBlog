@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // MUI
 import { Box, Container } from '@mui/material'
 // axios
-import axiosInstance from 'src/utils/axios';
+import { axiosInst } from 'src/utils/axios';
 // components
 import Page from 'src/components/Page';
 // templates
@@ -17,13 +17,13 @@ import Footer from './blog-templates/Footer';
 // ------------------------------------------------------------------------------------
 interface MyPostsProps {
     id: string;
-    createdAt: string;
+    createdDt: string;
     firstName: string;
     lastName: string;
     title: string;
     description: string;
     topic: string
-    readTime: string;
+    // readTime: string;
 };
 
 // ------------------------------------------------------------------------------------
@@ -31,51 +31,27 @@ interface MyPostsProps {
 export default function MyPosts() {
 
     const [list, setList] = useState<MyPostsProps[]>([])
-    const [userId, setUserId] = useState('');
-
-    const testProps = [{
-        _id: 1,
-        id: '1',
-        title: 'Most Americans Have No Clue What Immunocompromised Means',
-        description: 'Let’s understand who the immunocompromised are. And this is a very lazy description for the blog',
-        topic: 'React',
-        firstName: 'Mark',
-        lastName: 'Cuban',
-        createdAt: 'January 13, 2022',
-        readTime: '6'
-    },
-    {
-        _id: 2,
-        id: '2',
-        title: 'Most Americans Have No Clue What Immunocompromised Means',
-        description: 'Let’s understand who the immunocompromised are. And this is a very lazy description for the blog',
-        topic: 'Vue',
-        firstName: 'Josh',
-        lastName: 'Cuban',
-        createdAt: 'January 13, 2022',
-        readTime: '6'
-    },
-    ]
+    const userId = localStorage.getItem('id')
+    const bearer = localStorage.getItem('token')
 
     useEffect(() => {
-        const userId = localStorage.getItem('id')
-        axiosInstance
-            .get(`user/${userId}/posts`)
-            .then(({ data }) => {
+        axiosInst
+            .get(`user/${userId}/posts`, { headers: { 'Authorization': 'Bearer ' + bearer } })
+            .then((data) => {
                 console.log(data);
-                setList(data.items);
+                setList(data.data);
             })
             .catch((e) => {
                 console.error(e);
             });
-    }, [])
+    }, [userId, bearer])
 
     return (
         <Page title="Single Post Page">
             <Container maxWidth='md' sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
                 <Box>
                     <ImageFeature post={imageFeaturePost} />
-                    {testProps.map((item, i, arr) => (
+                    {list.map((item, i, arr) => (
                         <MyBlogs key={item.id} props={item} />
                     )
                     )}
