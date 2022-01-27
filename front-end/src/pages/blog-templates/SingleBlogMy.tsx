@@ -1,5 +1,8 @@
 // MUI
-import { Typography, Divider, Box } from '@mui/material'
+import { Typography, Divider, Box, Button, Grid } from '@mui/material'
+
+// react-router-dom
+import { useNavigate } from 'react-router';
 
 // template
 import { imageFeaturePost } from './ImageFeaturePost'
@@ -24,14 +27,25 @@ interface BlogProps {
 
 // ------------------------------------------------------------------------------------
 
-const Blog = ({ props }: any) => { // FIXME: Type props need review
+const BlogMy = ({ props }: any) => { // FIXME: Type props need review
 
-    const { title, body, description, topic, firstName, lastName, createdDt } = props;
+    const { title, body, description, topic, firstName, lastName, createdDt, id } = props;
+    const navigate = useNavigate();
 
     return (
         <Box  >
             <ImageFeature post={imageFeaturePost} />
             <Divider sx={{ mb: '15px' }} />
+            <Grid container justifyContent="flex-end" >
+                <Grid item sx={{ my: 2, mx: 0 }}>
+                    <Button
+                        onClick={() => navigate(`/edit-post`, { state: id })}
+                        variant="contained"
+                    >
+                        Edit
+                    </Button>
+                </Grid>
+            </Grid>
             <Typography variant='h3' gutterBottom>
                 {title}
             </Typography>
@@ -63,4 +77,4 @@ const Blog = ({ props }: any) => { // FIXME: Type props need review
     )
 }
 
-export default Blog;
+export default BlogMy;

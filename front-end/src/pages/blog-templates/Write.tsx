@@ -10,6 +10,9 @@ import { useEffect, useState } from 'react';
 // axios
 import { axiosInst } from 'src/utils/axios';
 
+// react-router-dom
+import { useNavigate } from 'react-router-dom';
+
 // ------------------------------------------------------------------------------------
 
 interface AuthorData {
@@ -34,6 +37,7 @@ const Write = () => {
   const { handleSubmit, register } = useForm<Blog>();
   const userId = localStorage.getItem('id');
   const bearer = localStorage.getItem('token');
+  const navigate = useNavigate();
 
   // get author data
   useEffect(() => {
@@ -64,8 +68,9 @@ const Write = () => {
         { headers: { Authorization: 'Bearer ' + bearer } }
       );
       console.log(result);
-      if (result.status === 200) {
+      if (result.status === 201) {
         console.log('You can add rerouting in here');
+        navigate('/my-posts')
       }
     } catch (e) {
       console.error(e);

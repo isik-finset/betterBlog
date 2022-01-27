@@ -37,7 +37,7 @@ const MyBlogs = ({ props }: MyBlogsProps) => {
         By {firstName} {lastName}
       </Typography>
       <Typography variant="h6" fontWeight="bold" sx={{ cursor: 'pointer' }}>
-        <StyledLink to={`/single-post/${id}`} state={{ state: props }}>
+        <StyledLink to={`/single-postmy/${id}`} state={{ state: props }}>
           {title}
         </StyledLink>
       </Typography>
