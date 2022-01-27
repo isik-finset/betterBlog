@@ -1,5 +1,5 @@
 // MUI
-import { Typography, Divider, Box } from '@mui/material'
+import { Typography, Divider, Box, Button, Grid } from '@mui/material'
 
 // template
 import { imageFeaturePost } from './ImageFeaturePost'
@@ -32,6 +32,15 @@ const Blog = ({ props }: any) => { // FIXME: Type props need review
         <Box  >
             <ImageFeature post={imageFeaturePost} />
             <Divider sx={{ mb: '15px' }} />
+            <Grid container justifyContent="flex-end" >
+                <Grid item sx={{ my: 2, mx: 0 }}>
+                    <Button
+                        variant="contained"
+                    >
+                        Edit
+                    </Button>
+                </Grid>
+            </Grid>
             <Typography variant='h3' gutterBottom>
                 {title}
             </Typography>
@@ -40,11 +49,11 @@ const Blog = ({ props }: any) => { // FIXME: Type props need review
                 <Typography variant="caption">
                     By {firstName} {lastName}
                 </Typography>
-                <br />
+                {/* <br />
                 <Typography variant="caption" color="text.secondary">
-                    {/* {createdDt.split('T')[0]} ( {6} min read )   FIXME: Currently splitting an undefined property, will probably be fixed after adding the proper types  */}
+                     {createdDt.split('T')[0]} ( {6} min read )   FIXME: Currently splitting an undefined property, will probably be fixed after adding the proper types 
                 </Typography>
-                <br />
+                <br /> */}
                 <Typography variant='caption' color="text.primary" paragraph>
                     {topic}
                 </Typography>

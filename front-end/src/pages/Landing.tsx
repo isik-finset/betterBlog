@@ -16,10 +16,6 @@ import ImageFeature from './blog-templates/ImageFeature';
 import { imageFeaturePost } from './blog-templates/ImageFeaturePost';
 import Footer from './blog-templates/Footer';
 
-
-
-
-
 // ------------------------------------------------------------------------------------
 interface LandingPageType {
   // _id: number;
