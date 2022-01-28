@@ -1,8 +1,9 @@
 {
   "name": "react-boilerplate",
-  "author": "finsetN",
+  "author": "Islom Numanov",
   "version": "0.0.1",
   "private": true,
+  "license": "isik-tech licensed",
   "scripts": {
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
