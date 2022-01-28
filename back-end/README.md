@@ -22,41 +22,39 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# BetterBlog - BackEnd
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). -->
+
+
+## Project Summary
+
+<p align="center">Here you practice creating 
+
+***
 
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn run start
 
 # watch mode
-$ npm run start:dev
+$ yarn run start:dev
+
+# debugger
+$ yarn run start:debug
 
 # production mode
-$ npm run start:prod
+$ yarn run start:prod
 ```
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
 
 ## Support
 
