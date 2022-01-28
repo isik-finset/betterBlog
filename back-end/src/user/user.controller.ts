@@ -9,15 +9,18 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
-import { User as UserModel } from '@prisma/client';
-import { JwtAuthGuard } from 'src/guards/auth.guard';
+import { RegisterDto, RegisterResponseDto } from './user_dto/register.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+
+// ---------------------------------------------------------------------------------
+
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   // get all users
   @Get('/')
-  //   @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   async getAllUsers() {
     const resp = await this.userService.getUsers();
@@ -26,23 +29,27 @@ export class UserController {
 
   // get a single user
   @Get('/:id')
-  async getUserById(@Param('id') id: string): Promise<UserModel> {
-    const resp = await this.userService.getUser(id);
-    return resp;
+  @UseGuards(JwtAuthGuard)
+  async getUserById(@Param('id') id: number): Promise<any> {
+    const result = await this.userService.getUser(id);
+    return result;
   }
 
-  // register user
-  @Post('/register')
+  // get a single user's all posts
+  @UseGuards(JwtAuthGuard)
+  @Get('/:id/posts')
+  async getUserPostById(@Param('id') id: number): Promise<any> {
+    const result = await this.userService.getUserPosts(id);
+    return result;
+  }
+
+  // register user -- dto has been added
+  @Post('/signup')
   async registerUser(
-    @Body()
-    userData: {
-      firstName: string;
-      lastName: string;
-      email: string;
-      password: string;
-    },
-  ): Promise<UserModel> {
-    const resp = await this.userService.registerUser(userData);
+    @Body() userData: RegisterDto,
+  ): Promise<RegisterResponseDto> {
+    const result = await this.userService.registerUser(userData);
+    const resp = new RegisterResponseDto(result);
     return resp;
   }
 }

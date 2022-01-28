@@ -18,7 +18,11 @@ export default function useBlog<Type>(initialBlog: Type) {
             description: data.get('description'),
             body: data.get('body'),
             topic: data.get('topic'),
-    })}
+            firstName: data.get('firstName'),
+            lastName: data.get('lastName'),
+            id: data.get('id')
+    })
+}
 
 
     return {

@@ -25,7 +25,17 @@ export class CreatePostDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  readonly author: string;
+  readonly authorId: number;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  readonly firstName: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  readonly lastName: string;
 }
 
 export class CreatePostResponseDto {
@@ -57,7 +67,17 @@ export class CreatePostResponseDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  readonly author: string;
+  readonly authorId: number;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  readonly firstName: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  readonly lastName: string;
 
   constructor(userData) {
     this.id = userData.id.toString();

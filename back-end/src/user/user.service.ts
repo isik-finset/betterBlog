@@ -1,9 +1,9 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-// import { PrismaClient } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
+import { User as UserModel } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
-import { RegisterDto } from './user_dto/register.dto';
-import { Prisma, User as UserModel } from '@prisma/client';
+import { RegisterDto, RegisterResponseDto } from './user_dto/register.dto';
 
+// ---------------------------------------------------------------------------------
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
@@ -12,7 +12,6 @@ export class UserService {
   async getUsers(): Promise<UserModel[]> {
     try {
       const resp: any = await this.prisma.user.findMany();
-      //   const result: any = []
       for (const user of resp) {
         user.id = user.id.toString();
       }
@@ -23,8 +22,8 @@ export class UserService {
     }
   }
 
-  // get a single user
-  async getUser(id: any): Promise<UserModel | null> {
+  // get a single user -- dto has been added // FIXME: need to remove the user password from the response
+  async getUser(id: number): Promise<any> {
     try {
       const resp: any = await this.prisma.user.findFirst({
         where: {
@@ -39,10 +38,30 @@ export class UserService {
     }
   }
 
-  // register a user
-  async registerUser(data: any): Promise<UserModel> {
+  // get a single user's all posts
+  async getUserPosts(id: number): Promise<any> {
+    // get user info
+    let user: RegisterResponseDto;
     try {
-      const resp: any = await this.prisma.user.create({
+      user = await this.getUser(id);
+    } catch (e) {
+      // FIXME: exception
+      console.error(`User with this ID does not exist: ${e}`);
+    }
+    const resp: any = await this.prisma.user.findFirst({
+      where: { id: BigInt(user.id), email: user.email },
+      include: {
+        posts: true,
+      },
+    });
+    console.log('🚀 ~ UserService ~ getUserPosts ~ resp', resp);
+    return resp.posts;
+  }
+
+  // register a user -- dto has been added
+  async registerUser(data: RegisterDto): Promise<UserModel> {
+    try {
+      const resp = await this.prisma.user.create({
         data: {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -50,7 +69,6 @@ export class UserService {
           password: data.password,
         },
       });
-      resp.id = resp.id.toString();
       return resp;
     } catch (e) {
       console.error(e);

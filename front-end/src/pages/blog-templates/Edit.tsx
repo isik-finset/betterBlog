@@ -1,22 +1,95 @@
 // react
-import React from 'react';
+import { useEffect, useState } from 'react';
 
 // MUI
 import { Box, Container, Grid, TextField, Button } from '@mui/material'
 
 // hooks
-import useBlog from 'src/hooks/useBlog';
+import { useForm } from 'react-hook-form'
+
+// react-router-dom
+import { useLocation, useNavigate } from 'react-router-dom'
+
+// axios
+import { axiosInst } from 'src/utils/axios'
+
+
+// ------------------------------------------------------------------------------------
+
+interface BlogType {
+    title: string;
+    description: string;
+    body: string
+    topic: string
+}
 
 // ------------------------------------------------------------------------------------
 
 const Edit = () => {
+    const [list, setList] = useState<BlogType>(Object);
+    const { handleSubmit, register } = useForm<BlogType>()
+    const location = useLocation();
+    const navigate = useNavigate()
+    const bearer = localStorage.getItem('token');
 
-    const { blog, handleChange, handleSubmit } = useBlog({ title: "", description: "", body: "", topic: "" })
-    const { title, description, body, topic } = blog;
+    // get post
+    useEffect(() => {
+        axiosInst
+            .get(`/posts/${location.state}`)
+            .then((data) => {
+                console.log(data);
+                setList(data.data)
+            })
+            .catch((e) => {
+                console.error(e)
+            })
+    }, [])
+
+
+    // update post
+    const onSubmit = async (data: BlogType) => {
+        try {
+            const result = await axiosInst.patch(`/posts/${location.state}`,
+                {
+                    title: data.title,
+                    description: data.description,
+                    body: data.body,
+                    topic: data.topic
+                },
+                {
+                    headers: { Authorization: 'Bearer ' + bearer }
+                })
+            console.log(result);
+            if (result.status === 200) {
+                console.log('You can add rerouting in here');
+            }
+        } catch (e) {
+            console.error(e)
+        }
+        alert(JSON.stringify(data))
+    }
+
+    // update post
+    const deletePost = async () => {
+        try {
+            const result = await axiosInst.delete(`/posts/${location.state}`,
+                {
+                    headers: { Authorization: 'Bearer ' + bearer }
+                })
+            console.log(result);
+            if (result.status === 200) {
+                console.log('You can add rerouting in here');
+                navigate('/my-posts')
+            }
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
 
     return (
         <Container maxWidth="md">
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 5 }}>
+            <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 5 }}>
                 <Grid container justifyContent="flex-end" sx={{ mb: 5 }} >
                     <Grid item sx={{ my: 2, mx: 0 }}>
                         <Button
@@ -28,53 +101,51 @@ const Edit = () => {
                     </Grid>
                     <Grid item sx={{ my: 2, ml: "10px" }}>
                         <Button
+                            onClick={() => deletePost()}
                             variant="outlined"
                         >
                             Remove Blog
                         </Button>
                     </Grid>
                 </Grid>
-                <Grid container spacing={10}>
+                <Grid container spacing={10} mb={5}>
                     <Grid item xs={12} >
                         <TextField
                             variant="standard"
-                            name="title"
                             id="title"
                             // label="Title"
                             placeholder="Give your blog a title..."
                             fullWidth
                             required
                             autoFocus
-                            value={title}
-                            onChange={handleChange}
+                            // value={list.title}
+                            {...register('title')}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
                             variant='standard'
-                            name="description"
                             id="description"
                             // label="Description"
                             placeholder="Write a short description..."
                             multiline
                             required
                             fullWidth
-                            value={description}
-                            onChange={handleChange}
+                            // value={list.description}
+                            {...register('description')}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
                             variant="standard"
-                            name="body"
                             id="body"
                             // label="Body"
                             placeholder="Tell your story..."
                             multiline
                             required
                             fullWidth
-                            value={body}
-                            onChange={handleChange}
+                            // value={list.body}
+                            {...register('body')}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -82,20 +153,17 @@ const Edit = () => {
                             variant="standard"
                             id="topic"
                             // label="Topic"
-                            name="topic"
                             placeholder="Topic, in a single word..."
                             multiline
                             required
                             fullWidth
-                            value={topic}
-                            onChange={handleChange}
+                            // value={list.topic}
+                            {...register('topic')}
                         />
                     </Grid>
                 </Grid>
             </Box>
         </Container>
-
-
     )
 };
 

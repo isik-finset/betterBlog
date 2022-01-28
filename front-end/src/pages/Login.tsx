@@ -14,26 +14,13 @@ import useLogin from 'src/hooks/useLogin';
 import useAuth from 'src/hooks/useAuth';
 // axios
 import axiosInstance from 'src/utils/axios';
+import { axiosInst } from 'src/utils/axios';
 // templates
 import Footer from './blog-templates/Footer';
 
 // ----------------------------------------------------------------------
 
-// Guards : done
-// useReducer
-// improve router : done
-// validation - login regex : done
-
-
-
-// 1: when page reloads, keep the user data! adjust context provider
-// 2. move fetch login from login page to context and make a function that can be user in login page
-// 3. remove token 
-// 4. improve validation  
-
-// update
-
-export default function LandingPage() {
+export default function LoginPage() {
 
   const defaultValues = {
     email: "",
@@ -49,74 +36,36 @@ export default function LandingPage() {
   // hooks
   const { logIn } = useAuth();
   const { form, handleChange, emailValidation } = useLogin(defaultValues);
-  //const { errors, isValid } = useForm(initValues, validationSchema)
-  // { name: { isRequired: true,  }, email: { isRequied: true, isEmail: true } }
 
 
-
-  // submit form -> validate -> login
   const onSubmit = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     const isEmailValid = emailValidation(form.email);
     isEmailValid ? setMessage("Email address is valid") : setMessage("Email address is invalid")
 
 
-
     if (isEmailValid) {
       setIsValid(true)
-      // logIn(form)
       try {
-        const result = await axiosInstance.post('/api/account/login', {
-          email: form.email,
-          password: form.password
+        const result = await axiosInst.post('/auth/login', {
+          "email": form.email,
+          "password": form.password
         })
-        if (result.status === 200) {
+        if (result.status === 201) {
           console.log(result);
-          logIn(result.data.accessToken)
-          console.log(result.data.accessToken);
-          // navigate('/user-profile')
+          logIn(result.data.accessToken, result.data.userId)
           navigate('/landing')
         }
       } catch (e) {
-        alert('there is something wrong')
+        alert('there is something wrong with password')
       }
     } else {
       setIsValid(false)
     }
 
   }
-  // https://medium.com/geekculture/how-to-use-context-api-and-jwt-to-maintain-user-sessions-eb5602e83a03
 
   return (
-    // <Page title="Login Page">
-    //   <Container sx={{ my: 4 }}>
-    //     <Typography variant="h3" component="h1" paragraph>
-    //       Login
-    //     </Typography>
-    //     <Box>
-
-    //       <Typography>
-    //         Email:
-    //       </Typography>
-    //       <TextField name="email" value={form.email} onChange={handleChange} fullWidth />
-    //       <Typography sx={{ color: isValid ? 'green' : 'red' }}>
-    //         {message}
-    //       </Typography>
-    //       <Typography>
-    //         Password:
-    //       </Typography>
-    //       <TextField name="password" value={form.password} onChange={handleChange} fullWidth />
-    //       <Box sx={{ my: 2 }}>
-    //         <Button component="button" onClick={onSubmit} fullWidth variant="contained" size="large">
-    //           Submit
-    //         </Button>
-    //       </Box>
-
-    //     </Box>
-    //   </Container>
-    // </Page>
-
-
     <Page title="Login Page">
       <Container component="main" maxWidth="xs">
 

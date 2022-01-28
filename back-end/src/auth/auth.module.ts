@@ -1,29 +1,23 @@
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
-
-import { UserModule } from 'src/user/user.module';
-import { AuthController } from 'src/auth/auth.controller';
-import { AuthService } from 'src/auth/auth.service';
-import { JwtStrategy } from 'src/stragies/jwt.strategies';
+import { JwtModule } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma.service';
+import { JwtStrategy } from './jwt.strategy';
 
+export const jwtSecret = 'betterBlogToyProject'; // should move it into the .env file and load it via @nestjs/config module for each environment
 @Module({
   imports: [
-    UserModule,
     PassportModule,
-    JwtModule.registerAsync({
-      useFactory: () => ({
-        secret: 'fdsfbsdfkjbskfjbskjbfksjd',
-        // if you want to use token with expiration date
-        signOptions: {
-          expiresIn: '7d', //configService.authConfig.jwtExpirationTime,
-        },
-      }),
+    JwtModule.register({
+      secret: jwtSecret,
+      signOptions: {
+        expiresIn: '2h',
+      },
     }),
   ],
-  providers: [AuthService, JwtStrategy, PrismaService],
   controllers: [AuthController],
-  exports: [JwtModule, AuthService],
+  providers: [AuthService, PrismaService, JwtStrategy],
 })
 export class AuthModule {}

@@ -1,45 +1,43 @@
 // MUI
-import { Box, Typography, useTheme, styled } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 
 // react-router-dom
 import { Link } from 'react-router-dom';
 
 // ------------------------------------------------------------------------------------
 
-const StyledLink = styled(Link)(({ theme }) => ({
+const StyledLink = styled(Link)(() => ({
     textDecoration: "none",
     color: 'black',
 }))
-
 
 // ------------------------------------------------------------------------------------
 interface LandingPageBlogsProps {
     props: {
         // _id: number;
+        // authorId: string;
+        // readTime: string;
         id: string;
-        authorId: string;
-        createdAt: string;
-        // firstName: string;
-        // lastName: string;
+        createdDt: string;
+        firstName: string;
+        lastName: string;
         title: string;
         description: string;
         topic: string
-        // readTime: string;
     }
 }
 
 // ------------------------------------------------------------------------------------
 
 const Blogs = ({ props }: LandingPageBlogsProps) => {
-    const theme = useTheme();
 
-    const { title, description, topic, createdAt, id, authorId } = props;
+    const { title, description, topic, createdDt, id, firstName, lastName } = props;
 
     return (
         <Box marginBottom="20px">
-            {/* <Typography variant="caption">
+            <Typography variant="caption">
                 By {firstName} {lastName}
-            </Typography> */}
+            </Typography>
             <Typography variant="h6" fontWeight="bold" sx={{ cursor: "pointer" }} >
                 <StyledLink to={`/single-post/${id}`} state={{ state: props }}>
                     {title}
@@ -48,9 +46,9 @@ const Blogs = ({ props }: LandingPageBlogsProps) => {
             <Typography variant="subtitle2" color="text.secondary">
                 {description}
             </Typography>
-            {/* <Typography variant="caption" color="text.secondary">
-                {createdAt} ( {readTime} min read )
-            </Typography> */}
+            <Typography variant="caption" color="text.secondary">
+                {createdDt.split('T')[0]} ( {6} min read )
+            </Typography>
             <Typography variant='caption' color='text.primary' paragraph>
                 {topic}
             </Typography>

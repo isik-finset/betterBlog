@@ -1,5 +1,7 @@
 // react
 import React, { useState, useEffect } from 'react';
+// react-router-dom
+import { useLocation } from 'react-router-dom';
 // MUI
 import { Box, Container } from '@mui/material'
 // axios
@@ -7,36 +9,35 @@ import { axiosInst } from 'src/utils/axios';
 // components
 import Page from 'src/components/Page';
 // templates
-import MyBlogs from './blog-templates/MyBlogs'
-import ImageFeature from './blog-templates/ImageFeature';
-import { imageFeaturePost } from './blog-templates/ImageFeaturePost';
+import SingleBlogMy from './blog-templates/SingleBlogMy'
 import Footer from './blog-templates/Footer';
 
-
-
 // ------------------------------------------------------------------------------------
-interface MyPostsProps {
+interface BlogType {
+    // _id: number,
+    // email: string;
+    // readTime: string;
     id: string;
     createdDt: string;
     firstName: string;
     lastName: string;
     title: string;
     description: string;
+    body: string
     topic: string
-    // readTime: string;
 };
 
 // ------------------------------------------------------------------------------------
 
-export default function MyPosts() {
+export default function SinglePostMy() {
+    const [list, setList] = useState<any[]>([]) //FIXME: Type needs to be fixed
 
-    const [list, setList] = useState<MyPostsProps[]>([])
-    const userId = localStorage.getItem('id')
-    const bearer = localStorage.getItem('token')
+    const { state }: any = useLocation(); // review needed
+    const postID = state.state.id;
 
     useEffect(() => {
         axiosInst
-            .get(`user/${userId}/posts`, { headers: { 'Authorization': 'Bearer ' + bearer } })
+            .get(`/posts/${postID}`)
             .then((data) => {
                 console.log(data);
                 setList(data.data);
@@ -44,17 +45,13 @@ export default function MyPosts() {
             .catch((e) => {
                 console.error(e);
             });
-    }, [userId, bearer])
+    }, [postID])
 
     return (
         <Page title="Single Post Page">
-            <Container maxWidth='md' sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }} >
                 <Box>
-                    <ImageFeature post={imageFeaturePost} />
-                    {list.map((item, i, arr) => (
-                        <MyBlogs key={item.id} props={item} />
-                    )
-                    )}
+                    <SingleBlogMy props={list} />
                 </Box>
             </Container>
             <Footer />

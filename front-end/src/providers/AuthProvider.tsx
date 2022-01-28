@@ -47,7 +47,7 @@ const AuthProvider: FC = ({ children }) => {
     useEffect(() => {
         const init = async () => {
             const userToken = localStorage.getItem('token')
-            userToken ? fetchUserData(userToken) : setIsAuth(false)
+            userToken ? setIsAuth(true) : setIsAuth(false)
         }
 
         init();
@@ -56,36 +56,37 @@ const AuthProvider: FC = ({ children }) => {
 
 
     // upon receiving a token, update global state and send user data request
-    const logIn = (newToken: string) => {
+    const logIn = (newToken: string, userId: string) => {
         setIsAuth(true);
         localStorage.setItem('token', newToken)
-        fetchUserData(newToken)
+        localStorage.setItem('id', userId)
+        // fetchUserData(newToken)
     };
 
     // logOut 
     const logOut = () => {
         setIsAuth(false);
         localStorage.removeItem('token')
+        localStorage.removeItem('id')
         navigate("/login")
     }
 
     // fetch user profile data
-    const fetchUserData = async (input: string) => {
-        setIsAuth(true)
-        try {
-            const result = await axiosInstance.get('/api/account/user-profile', {
-                headers: {
-                    'Authorization': `Bearer ${input}`
-                }
-            })
-            if (result.status === 200) {
-                updateUser(result.data.user)
-                // navigate('/user-profile') // think of a way to force the navigation from inside the Guards
-            }
-        } catch (e) {
-            alert('there is something wrong')
-        }
-    }
+    // const fetchUserData = async (input: string) => {
+    //     setIsAuth(true)
+    //     try {
+    //         const result = await axiosInstance.get('/api/account/user-profile', {
+    //             headers: {
+    //                 'Authorization': `Bearer ${input}`
+    //             }
+    //         })
+    //         if (result.status === 200) {
+    //             updateUser(result.data.user)
+    //         }
+    //     } catch (e) {
+    //         alert('there is something wrong')
+    //     }
+    // }
 
 
     return (
