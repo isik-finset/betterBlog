@@ -8,7 +8,7 @@ The sole purpose of this project was to learn and practice the fundamental conce
 
 * Build everything from scratch.
 * Avoid using third party libraries other than the ones given.
-* Be as much creative as you can
+* Be as much creative as you can.
 * Build a fully functional CRUD app, from front to back.
 
 ***
@@ -18,10 +18,10 @@ The sole purpose of this project was to learn and practice the fundamental conce
 
 |Front End|Back End|Common|
 |---------|---------|-----|
-|[React.js]() |[Nest.js]()|[TypeScript]()|
-|[Material UI]()|[MySQL]() / [MongoDB]()|[Docker]()|
-|[Axios]()|[Prisma]()|[Github]()|
-|[React Router V6]()|[Passport]() / [JWT]()|[Yarn]()|
+|[React.js](https://reactjs.org/) |[Nest.js](https://nestjs.com/)|[TypeScript](https://www.typescriptlang.org/)|
+|[Material UI](https://mui.com/)|[MySQL](https://www.mysql.com/) / [MongoDB](https://www.mongodb.com/)|[Docker](https://www.docker.com/)|
+|[Axios](https://axios-http.com/docs/intro)|[Prisma](https://www.prisma.io/)|[Github](https://github.com/)|
+|[React Router V6](https://reactrouter.com/)|[Passport](https://www.passportjs.org/) / [JWT](https://jwt.io/)|[Yarn](https://yarnpkg.com/)|
 ***
 
 ## Installation
@@ -78,16 +78,20 @@ Now you can locate to http://localhost:3000 and you will be able to see the app!
 ## Further Improvements
 > There is a lot of room for improvement throughout all parts of the app. I suggest starting small: 
 
-1. Front End
-   * Create [Dialogs](https://mui.com/components/dialogs/) to notify the user about a certain action (i.e. when user registers).
+1. **Front End**
+   * Create [Dialogs](https://mui.com/components/dialogs/) to notify the user about a certain action (i.e. when user registers, publishes, edit, deletes, and etc.).
    * Improve validation (UX).
    * Improve the quality and performance of the custom hooks in the hooks folder.
    * Work on Guards and make it more efficient.
    * Design could be improved as well.
 <br></br>
-2. Back End
+2. **Back End**
    * Controllers and Services for both Users and Posts could be readjusted to decrease data redundancy.
-   * Add [bcrypt](https://www.npmjs.com/package/bcrypt) to hash the user password
+   * Add [bcrypt](https://www.npmjs.com/package/bcrypt) to hash the user password.
+   * Add the logic for calculating read time based on the number of words in the body of a post.
+   * Search API could also be added.
+   * Find ID / Password logic.
+
 
 ***
 ## License 

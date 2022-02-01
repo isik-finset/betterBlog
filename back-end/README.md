@@ -1,3 +1,7 @@
+
+# BetterBlog - BackEnd
+
+<!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). -->
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
@@ -22,14 +26,10 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-# BetterBlog - BackEnd
-
-<!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). -->
-
 
 ## Project Summary
 
-<p align="center">Here you practice creating 
+<p align="center">Install the depenedencies run the application and check APIs. You will probably see a number of places where things could be improved, feel free to take notes and address those issues. 
 
 ***
 
@@ -55,17 +55,3 @@ $ yarn run start:debug
 $ yarn run start:prod
 ```
 
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
