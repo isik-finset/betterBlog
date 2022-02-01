@@ -6,12 +6,11 @@ import { JwtModule } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma.service';
 import { JwtStrategy } from './jwt.strategy';
 
-export const jwtSecret = 'betterBlogToyProject'; // should move it into the .env file and load it via @nestjs/config module for each environment
 @Module({
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: jwtSecret,
+      secret: process.env.JWTSECRET,
       signOptions: {
         expiresIn: '2h',
       },
