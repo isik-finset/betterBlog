@@ -22,7 +22,7 @@ export class UserService {
     }
   }
 
-  // get a single user -- dto has been added // FIXME: need to remove the user password from the response
+  // get a single user
   async getUser(id: number): Promise<any> {
     try {
       const resp: any = await this.prisma.user.findFirst({
@@ -31,7 +31,8 @@ export class UserService {
         },
       });
       resp.id = resp.id.toString();
-      return resp;
+      const { password, ...newResp } = resp
+      return newResp;
     } catch (e) {
       console.error(e);
       return e;
@@ -45,7 +46,6 @@ export class UserService {
     try {
       user = await this.getUser(id);
     } catch (e) {
-      // FIXME: exception
       console.error(`User with this ID does not exist: ${e}`);
     }
     const resp: any = await this.prisma.user.findFirst({
