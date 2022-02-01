@@ -1,6 +1,3 @@
-// react
-import React from 'react';
-
 // MUI
 import { Paper, Typography, Grid, Box } from '@mui/material';
 

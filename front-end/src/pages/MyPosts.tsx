@@ -1,5 +1,5 @@
 // react
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 // MUI
 import { Box, Container } from '@mui/material'
 // axios
@@ -23,7 +23,6 @@ interface MyPostsProps {
     title: string;
     description: string;
     topic: string
-    // readTime: string;
 };
 
 // ------------------------------------------------------------------------------------

@@ -14,7 +14,6 @@ const StyledLink = styled(Link)(() => ({
 // ------------------------------------------------------------------------------------
 interface MyBlogsProps {
   props: {
-    // _id: number,
     id: string;
     title: string;
     description: string;
@@ -22,7 +21,6 @@ interface MyBlogsProps {
     lastName: string;
     createdDt: string;
     topic: string;
-    // readTime: string;
   };
 }
 

@@ -14,9 +14,6 @@ const StyledLink = styled(Link)(() => ({
 // ------------------------------------------------------------------------------------
 interface LandingPageBlogsProps {
     props: {
-        // _id: number;
-        // authorId: string;
-        // readTime: string;
         id: string;
         createdDt: string;
         firstName: string;

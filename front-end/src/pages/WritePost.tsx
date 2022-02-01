@@ -1,5 +1,3 @@
-// react
-import React from 'react';
 // components
 import Page from 'src/components/Page';
 // templates

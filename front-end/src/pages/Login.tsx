@@ -13,7 +13,6 @@ import Page from '../components/Page';
 import useLogin from 'src/hooks/useLogin';
 import useAuth from 'src/hooks/useAuth';
 // axios
-import axiosInstance from 'src/utils/axios';
 import { axiosInst } from 'src/utils/axios';
 // templates
 import Footer from './blog-templates/Footer';

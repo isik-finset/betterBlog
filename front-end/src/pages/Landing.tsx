@@ -18,9 +18,6 @@ import Footer from './blog-templates/Footer';
 
 // ------------------------------------------------------------------------------------
 interface LandingPageType {
-  // _id: number;
-  // authorId: string;
-  // readTime: string;
   id: string;
   createdDt: string;
   firstName: string;

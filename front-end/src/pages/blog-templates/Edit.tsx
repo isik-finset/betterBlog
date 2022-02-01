@@ -113,12 +113,10 @@ const Edit = () => {
                         <TextField
                             variant="standard"
                             id="title"
-                            // label="Title"
                             placeholder="Give your blog a title..."
                             fullWidth
                             required
                             autoFocus
-                            // value={list.title}
                             {...register('title')}
                         />
                     </Grid>
@@ -126,12 +124,10 @@ const Edit = () => {
                         <TextField
                             variant='standard'
                             id="description"
-                            // label="Description"
                             placeholder="Write a short description..."
                             multiline
                             required
                             fullWidth
-                            // value={list.description}
                             {...register('description')}
                         />
                     </Grid>
@@ -139,12 +135,10 @@ const Edit = () => {
                         <TextField
                             variant="standard"
                             id="body"
-                            // label="Body"
                             placeholder="Tell your story..."
                             multiline
                             required
                             fullWidth
-                            // value={list.body}
                             {...register('body')}
                         />
                     </Grid>
@@ -152,12 +146,10 @@ const Edit = () => {
                         <TextField
                             variant="standard"
                             id="topic"
-                            // label="Topic"
                             placeholder="Topic, in a single word..."
                             multiline
                             required
                             fullWidth
-                            // value={list.topic}
                             {...register('topic')}
                         />
                     </Grid>

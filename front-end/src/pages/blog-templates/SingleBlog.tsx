@@ -8,9 +8,6 @@ import ImageFeature from './ImageFeature';
 // ------------------------------------------------------------------------------------
 interface BlogProps {
     props: {
-        // _id: number,
-        // email: string;
-        // readTime: string;
         id: string;
         createdDt: string;
         firstName: string;
@@ -24,7 +21,7 @@ interface BlogProps {
 
 // ------------------------------------------------------------------------------------
 
-const Blog = ({ props }: any) => { // FIXME: Type props need review
+const Blog = ({ props }: BlogProps) => {
 
     const { title, body, description, topic, firstName, lastName, createdDt } = props;
 
@@ -40,11 +37,12 @@ const Blog = ({ props }: any) => { // FIXME: Type props need review
                 <Typography variant="caption">
                     By {firstName} {lastName}
                 </Typography>
-                {/* <br />
+                <br />
                 <Typography variant="caption" color="text.secondary">
-                     {createdDt.split('T')[0]} ( {6} min read )   FIXME: Currently splitting an undefined property, will probably be fixed after adding the proper types 
+                    { createdDt ? (createdDt.split('T')[0])  :  null } {''}
+                      ({6} min read)   
                 </Typography>
-                <br /> */}
+                <br />
                 <Typography variant='caption' color="text.primary" paragraph>
                     {topic}
                 </Typography>

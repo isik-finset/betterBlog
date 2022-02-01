@@ -1,5 +1,5 @@
 // react
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 // react-router-dom
 import { useLocation } from 'react-router-dom';
 // MUI
@@ -14,9 +14,6 @@ import Footer from './blog-templates/Footer';
 
 // ------------------------------------------------------------------------------------
 interface BlogType {
-    // _id: number,
-    // email: string;
-    // readTime: string;
     id: string;
     createdDt: string;
     firstName: string;
@@ -30,9 +27,9 @@ interface BlogType {
 // ------------------------------------------------------------------------------------
 
 export default function SinglePost() {
-    const [list, setList] = useState<any[]>([]) //FIXME: Type needs to be fixed
+    const [list, setList] = useState<BlogType>(Object)
 
-    const { state }: any = useLocation(); // review needed
+    const { state }: any = useLocation(); 
     const postID = state.state.id;
 
     useEffect(() => {

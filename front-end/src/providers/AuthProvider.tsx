@@ -4,7 +4,6 @@ import { useState, createContext, FC, useEffect } from 'react';
 import { TokenContextState } from 'src/types/types';
 // router
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from 'src/utils/axios';
 
 // ------------------------------------------------------------------------------------
 
@@ -70,24 +69,6 @@ const AuthProvider: FC = ({ children }) => {
         localStorage.removeItem('id')
         navigate("/login")
     }
-
-    // fetch user profile data
-    // const fetchUserData = async (input: string) => {
-    //     setIsAuth(true)
-    //     try {
-    //         const result = await axiosInstance.get('/api/account/user-profile', {
-    //             headers: {
-    //                 'Authorization': `Bearer ${input}`
-    //             }
-    //         })
-    //         if (result.status === 200) {
-    //             updateUser(result.data.user)
-    //         }
-    //     } catch (e) {
-    //         alert('there is something wrong')
-    //     }
-    // }
-
 
     return (
         <AuthContext.Provider value={{ user, isAuth, logIn, logOut, updateUser }}>
