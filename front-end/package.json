@@ -9,6 +9,7 @@
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,6 +41,9 @@
     "@iconify/react": "^3.1.0",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.4",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
     "axios": "^0.21.4",
     "axios-mock-adapter": "^1.20.0",
     "history": "^5.2.0",
@@ -60,7 +64,9 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.3",
+    "@types/jest": "^27.4.0",
     "@types/jsonwebtoken": "^8.5.5",
+    "@types/node": "^17.0.14",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
