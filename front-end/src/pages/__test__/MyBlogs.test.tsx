@@ -56,4 +56,10 @@ describe("MyBlogs-Test", () => {
         const paragraphElement = screen.getByText(/yesterday/i);
         expect(paragraphElement).toBeInTheDocument();
     })
+
+    it("should check if the topic matches the prop", () => {
+        render(<MockMyBlogs props={data} />);
+        const textElement = screen.getByText(/MKD/i);
+        expect(textElement).toBeInTheDocument();
+    })
 })
