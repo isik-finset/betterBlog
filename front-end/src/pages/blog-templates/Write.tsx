@@ -114,6 +114,7 @@ const Write = () => {
           <Grid item xs={12}>
             <TextField
               variant="standard"
+              data-testid="body"
               id="body"
               placeholder="Tell your story..."
               multiline

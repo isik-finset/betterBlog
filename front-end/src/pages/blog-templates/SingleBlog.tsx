@@ -39,8 +39,8 @@ const Blog = ({ props }: BlogProps) => {
                 </Typography>
                 <br />
                 <Typography variant="caption" color="text.secondary">
-                    { createdDt ? (createdDt.split('T')[0])  :  null } {''}
-                      ({6} min read)   
+                    {createdDt ? (createdDt.split('T')[0]) : null} {''}
+                    ({6} min read)
                 </Typography>
                 <br />
                 <Typography variant='caption' color="text.primary" paragraph>
