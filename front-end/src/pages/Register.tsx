@@ -28,7 +28,7 @@ interface RegisterClient {
 
 // ----------------------------------------------------------------------
 
-const Register = () => {
+export default function Register () {
 
     const navigate = useNavigate();
     const { handleSubmit, register } = useForm<RegisterClient>()
@@ -140,5 +140,3 @@ const Register = () => {
 
     );
 };
-
-export default Register;

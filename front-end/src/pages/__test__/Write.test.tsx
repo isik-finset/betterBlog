@@ -2,6 +2,23 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Write from '../blog-templates/Write';
 import { BrowserRouter } from 'react-router-dom';
+import user from '@testing-library/user-event';
+import { axiosInst } from 'src/utils/axios';
+import { useNavigate } from 'react-router-dom';
+// ------------------------------------------------------------
+
+interface Blog {
+    title: string;
+    description: string;
+    body: string;
+    topic: string;
+    id: number;
+    firstName: string;
+    lastName: string;
+  }
+
+
+  // ------------------------------------------------------------
 
 const MockWrite = () => (
     <BrowserRouter>
@@ -72,6 +89,61 @@ describe("Write-Test", () => {
             const inputElement: HTMLInputElement = screen.getByPlaceholderText(/Topic, in a single word.../i);
             fireEvent.change(inputElement, { target: { value: "topic" } });
             expect(inputElement.value).toBe("topic");
+        })
+    })
+    describe("Integration", () => {
+        
+        it('should asser that all the form is being submitted and the app redirects to the Landing page', async () => {
+            const bearer = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNjQ0MzgwODAxLCJleHAiOjE2NDQzODgwMDF9.GHvdSxPoDIe8WknAzeWytsGnal7VSMLS6qWJPGSekFQ'
+    // const navigate = useNavigate();
+    
+    //post data
+    const onSubmit = async (data: Blog) => {
+        try {
+          const result = await axiosInst.post(
+            'posts/create',
+            {
+              firstName: data.firstName,
+              lastName: data.lastName,
+              authorId: Number(data.id),
+              title: data.title,
+              body: data.body,
+              description: data.description,
+              topic: data.topic,
+            },
+            { headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNjQ0MzgwODAxLCJleHAiOjE2NDQzODgwMDF9.GHvdSxPoDIe8WknAzeWytsGnal7VSMLS6qWJPGSekFQ' } }
+          );
+          console.log(result);
+          if (result.status === 201) {
+            console.log('You can add rerouting in here');
+            // navigate('/my-posts')
+          }
+        } catch (e) {
+          console.error(e);
+        }
+        // alert(JSON.stringify(data))
+      };
+
+            const mockPost = {
+                firstName: 'james',
+                lastName: 'bond',
+                authorId: 1,
+                title: 'movie',
+                body: 'movie',
+                description: 'movie',
+                topic: 'movie',
+            }
+            
+            render(<MockWrite />);
+            user.type(await screen.findByPlaceholderText(/Give your blog a title.../i), 'macbook');
+            const publishButton = await screen.findByRole("button");
+            expect(publishButton).toBeEnabled();
+            user.click(publishButton);
+
+            // await screen.findByText(/chamber/i)
+            // expect(onSubmit).toHaveBeenCalledWith(mockPost);
+            // expect(onSubmit).toHaveBeenCalledTimes(1);
+            // expect(screen.getByText(mockPost.firstName)).toBeInTheDocument();
         })
     })
 
